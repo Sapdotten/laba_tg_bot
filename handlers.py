@@ -61,7 +61,7 @@ async def close_lab(msg: types.Message):
 
 @router.message(F.text == "Лаба открыта?")
 async def get_lab_state(msg: types.Message):
-    answer = json.loads(requests.get("http://localhost:8080/state").text)["state"]
+    answer = lab_state.LabState.get_state()
     answer = (
                 "Лаборатория открыта."
                 if answer
