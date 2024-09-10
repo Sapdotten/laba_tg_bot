@@ -3,7 +3,7 @@ from asyncio import Lock
 lock = Lock()
 
 class LabState:
-    _state: bool
+    _state: bool = False
     _states_name = {
         True: "ОТКРЫТО",
         False: "ЗАКРЫТО"
@@ -12,21 +12,18 @@ class LabState:
         
     @classmethod
     async def get_status_str(cls) -> str:
-        return f"Лаборатория в состояни {cls._states_name[cls._state]}"
+        return f"Лаборатория в состоянии {cls._states_name[cls._state]}"
     
     @classmethod
-    async def get_status(cls):
+    async def get_status(cls) -> bool:
         return cls._state
     
     @classmethod
-    async def change_status(cls, new_state = None) -> str:
+    async def change_status(cls, new_state = None) -> bool:
         async with lock:
             if new_state is None:
                 cls._state = not cls._state
-                return
-            if cls._state == new_state:
-                return f"Лаборатория уже в состоянии {cls._states_name[cls._state]}"
+                return cls._state
             else:
                 cls._state = new_state
-                return f"Лаборатория переведена в состяние {cls._states_name[cls._state]}"
-        
+                return cls._state

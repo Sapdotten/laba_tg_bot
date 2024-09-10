@@ -9,3 +9,4 @@ COUNCIL_MEMPERS_IDS = (
      245311304, # Dmitry
      1098133332 # Misha
 )
+
