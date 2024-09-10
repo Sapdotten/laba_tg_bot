@@ -21,4 +21,4 @@ COPY .env .env
 EXPOSE 8080
 
 # Запускаем приложение с помощью uvicorn
-CMD ["uvicorn app.app:app --host 0.0.0.0 --port 5000 --reload &", "python3 app/main.py &"]
+CMD ["uvicorn app.app:app --host 0.0.0.0 --port 8080 --reload &", "python3 app/main.py &"]
