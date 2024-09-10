@@ -15,7 +15,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Копируем файл .env
-COPY .env .env
+COPY .env ./app/.env
 
 # Открываем порт, который будет использоваться для запуска приложения
 EXPOSE 8080
