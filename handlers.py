@@ -17,7 +17,7 @@ async def start(msg: types.Message):
     else:
         keyboard = keyboards.user_keyboard()
     await msg.answer(
-        "Привет!\nЯ бот клуба Robotic и у меня можно узнать, открыта ли наша лаборатория.",
+        "Привет!\nЯ бот клуба Robotic и у меня можно узнать, открыта ли наша лаборатория",
         reply_markup=keyboard,
     )
 
@@ -32,7 +32,7 @@ async def open_lab(msg: types.Message):
         else:
             answer = lab_state.LabState.set_state(True)
             answer = (
-                "Лаборатория переведена в состояние открыто."
+                "Лаборатория переведена в состояние открыто"
                 if answer
                 else "Лаборатория переведена в состояние закрыто"
             )
@@ -51,7 +51,7 @@ async def close_lab(msg: types.Message):
         else:
             answer = lab_state.LabState.set_state(False)
             answer = (
-                "Лаборатория переведена в состояние открыто."
+                "Лаборатория переведена в состояние открыто"
                 if answer
                 else "Лаборатория переведена в состояние закрыто"
             )
@@ -61,14 +61,11 @@ async def close_lab(msg: types.Message):
 
 @router.message(F.text == "Лаба открыта?")
 async def get_lab_state(msg: types.Message):
-<<<<<<< HEAD
     answer = lab_state.LabState.get_state()
-=======
-    answer = json.loads(requests.get("http://localhost:8080/state").text)["state"]
->>>>>>> amvera/master
     answer = (
-                "Лаборатория открыта."
+                "Лаборатория открыта"
                 if answer
                 else "Лаборатория закрыта"
             )
     await msg.answer(answer)
+    
