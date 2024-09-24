@@ -4,10 +4,8 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.methods.send_message import SendMessage
 import keyboards
-import requests
-from utils import lab_state
 import consts
-import json
+import lab_state
 
 router = Router()
 
@@ -28,14 +26,11 @@ async def start(msg: types.Message):
 async def open_lab(msg: types.Message):
     if msg.from_user.id in consts.COUNCIL_MEMPERS_IDS:
         # answer = await lab_state.LabState.change_status(True)
-        current_state = json.loads(requests.get("http://localhost:8080/state").text)["state"]
+        current_state = lab_state.LabState.get_state()
         if current_state:
             await msg.answer("Лаборатория уже открыта!")
         else:
-            response = requests.post(
-                "http://localhost:8080/change_state", json={"state": True}
-            )
-            answer = json.loads(response.text)["state"]
+            answer = lab_state.LabState.set_state(True)
             answer = (
                 "Лаборатория переведена в состояние открыто."
                 if answer
@@ -50,14 +45,11 @@ async def open_lab(msg: types.Message):
 async def close_lab(msg: types.Message):
     if msg.from_user.id in consts.COUNCIL_MEMPERS_IDS:
         # answer = await lab_state.LabState.change_status(True)
-        current_state = json.loads(requests.get("http://localhost:8080/state").text)["state"]
+        current_state = lab_state.LabState.get_state()
         if not current_state:
             await msg.answer("Лаборатория уже закрыта!")
         else:
-            response = requests.post(
-                "http://localhost:8080/change_state", json={"state": False}
-            )
-            answer = json.loads(response.text)["state"]
+            answer = lab_state.LabState.set_state(False)
             answer = (
                 "Лаборатория переведена в состояние открыто."
                 if answer
