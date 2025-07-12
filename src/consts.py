@@ -1,6 +1,6 @@
 COUNCIL_MEMPERS_IDS = (
      859743151, # Sasha Sem
-     866529348, # Roman 
+     866529348, # Roman
      837823253, # Petros
      825788685, # Gan
      833026817, # Petr

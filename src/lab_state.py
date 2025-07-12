@@ -1,9 +1,12 @@
-import requests
 import json
+
+import requests
+
+from config import Configs
 
 
 class LabState:
-    URL = "https://lababackend-sapdotten.amvera.io"
+    URL = Configs().back_url
 
     @classmethod
     def get_state(cls) -> bool:
