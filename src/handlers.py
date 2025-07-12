@@ -1,10 +1,10 @@
-from aiogram import types, F
+from aiogram import F, types
 from aiogram.dispatcher.router import Router
 from aiogram.filters import Command
-from aiogram.fsm.context import FSMContext
-from aiogram.methods.send_message import SendMessage
-import keyboards
+
+# from . import consts, keyboards, lab_state
 import consts
+import keyboards
 import lab_state
 
 router = Router()
@@ -17,7 +17,7 @@ async def start(msg: types.Message):
     else:
         keyboard = keyboards.user_keyboard()
     await msg.answer(
-        "Привет!\nЯ бот клуба Robotic и у меня можно узнать, открыта ли наша лаборатория.",
+        "Привет!\nЯ бот клуба Robotic и у меня можно узнать, открыта ли наша лаборатория",
         reply_markup=keyboard,
     )
 
@@ -32,7 +32,7 @@ async def open_lab(msg: types.Message):
         else:
             answer = lab_state.LabState.set_state(True)
             answer = (
-                "Лаборатория переведена в состояние открыто."
+                "Лаборатория переведена в состояние открыто"
                 if answer
                 else "Лаборатория переведена в состояние закрыто"
             )
@@ -51,7 +51,7 @@ async def close_lab(msg: types.Message):
         else:
             answer = lab_state.LabState.set_state(False)
             answer = (
-                "Лаборатория переведена в состояние открыто."
+                "Лаборатория переведена в состояние открыто"
                 if answer
                 else "Лаборатория переведена в состояние закрыто"
             )
@@ -59,12 +59,9 @@ async def close_lab(msg: types.Message):
     else:
         await msg.answer("У вас нет прав доступа.")
 
+
 @router.message(F.text == "Лаба открыта?")
 async def get_lab_state(msg: types.Message):
     answer = lab_state.LabState.get_state()
-    answer = (
-                "Лаборатория открыта."
-                if answer
-                else "Лаборатория закрыта"
-            )
+    answer = "Лаборатория открыта" if answer else "Лаборатория закрыта"
     await msg.answer(answer)
