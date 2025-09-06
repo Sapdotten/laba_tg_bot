@@ -1,5 +1,6 @@
-from vk_api.keyboard import VkKeyboardColor, VkKeyboard
-from src import consts
+from vk_api.keyboard import VkKeyboard, VkKeyboardColor
+
+from src.configs import consts
 
 
 def get_keyboard(id: int) -> str:

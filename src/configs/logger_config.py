@@ -1,9 +1,10 @@
 import logging
+
 import structlog
 
 
-def setup_logging():
-    timestamper = structlog.processors.TimeStamper(fmt="iso")  # type: ignore
+def setup_logging() -> None:
+    timestamper = structlog.processors.TimeStamper(fmt="iso")
 
     shared_processors = [
         structlog.contextvars.merge_contextvars,
@@ -14,7 +15,7 @@ def setup_logging():
 
     structlog.configure(
         processors=shared_processors + [
-            structlog.dev.ConsoleRenderer()
+            structlog.stdlib.ProcessorFormatter.wrap_for_formatter,
         ],
         context_class=dict,
         logger_factory=structlog.stdlib.LoggerFactory(),
@@ -33,5 +34,3 @@ def setup_logging():
     root_logger = logging.getLogger()
     root_logger.setLevel(logging.INFO)
     root_logger.addHandler(handler)
-
-    root_logger.propagate = False

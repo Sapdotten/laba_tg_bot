@@ -1,6 +1,6 @@
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 
-from src import consts
+from src.configs import consts
 
 
 def user_keyboard() -> ReplyKeyboardMarkup:

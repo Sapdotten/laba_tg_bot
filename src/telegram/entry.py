@@ -1,15 +1,14 @@
 import asyncio
-from structlog import get_logger
-from logger_config import setup_logging
-
-from aiogram import Bot, Dispatcher
-from aiogram.client.session.aiohttp import AiohttpSession
 
 import handlers
-from config import Configs
+from aiogram import Bot, Dispatcher
+from aiogram.client.session.aiohttp import AiohttpSession
+from structlog import get_logger
+
+from src.configs import Configs, setup_logging
+
 setup_logging()
 logger = get_logger()
-
 
 
 def register_routers(dp: Dispatcher) -> None:
@@ -18,7 +17,7 @@ def register_routers(dp: Dispatcher) -> None:
 
 async def main() -> None:
     session = AiohttpSession()
-    bot = Bot(Configs().bot_token, session=session)  # type: ignore
+    bot = Bot(Configs().tg_bot_token, session=session)
     dp = Dispatcher()
     register_routers(dp)
     try:
