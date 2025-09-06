@@ -1,16 +1,16 @@
 import json
 
 import requests
-
-from config import Configs
 from pydantic import BaseModel
+
+from src.configs import Configs
 
 
 class StateModel(BaseModel):
     state: bool
 
 
-class LabState:
+class LabStateApi:
     URL = Configs().back_url
 
     @classmethod
