@@ -10,7 +10,7 @@ from src.configs.consts import (
     TO_CLOSE_QUERY,
     TO_OPEN_QUERY,
 )
-from src.laba import lab_is_open_answer, lab_switch_state_answer
+from src.laba import BotType, lab_is_open_answer, lab_switch_state_answer
 
 router = Router()
 
@@ -26,12 +26,12 @@ async def start(msg: types.Message) -> None:
 
 @router.message(F.text == TO_OPEN_QUERY)
 async def open_lab(msg: types.Message) -> None:
-    await msg.answer(lab_switch_state_answer(True, msg.from_user.id))
+    await msg.answer(lab_switch_state_answer(True, msg.from_user.id, BotType.tg))
 
 
 @router.message(F.text == TO_CLOSE_QUERY)
 async def close_lab(msg: types.Message) -> None:
-    await msg.answer(lab_switch_state_answer(False, msg.from_user.id))
+    await msg.answer(lab_switch_state_answer(False, msg.from_user.id, BotType.tg))
 
 
 @router.message(F.text == IS_OPEN_QUERY)

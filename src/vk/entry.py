@@ -4,7 +4,7 @@ from vk_api.longpoll import VkEventType, VkLongPoll
 from vk_keyboards import get_keyboard
 
 from src.configs import Configs, consts, setup_logging
-from src.laba import lab_is_open_answer, lab_switch_state_answer
+from src.laba import BotType, lab_is_open_answer, lab_switch_state_answer
 
 setup_logging()
 logger = get_logger()
@@ -25,10 +25,16 @@ def main() -> None:
                     response = lab_is_open_answer()
                 case consts.TO_OPEN_QUERY:
                     response = lab_switch_state_answer(
-                        True, user_id=event.user_id)
+                        state=True,
+                        user_id=event.user_id,
+                        bot_type=BotType.vk
+                    )
                 case consts.TO_CLOSE_QUERY:
                     response = lab_switch_state_answer(
-                        False, user_id=event.user_id)
+                        state=False,
+                        user_id=event.user_id,
+                        bot_type=BotType.vk
+                    )
                 case _:
                     logger.info("Got not a command, continue")
                     continue
