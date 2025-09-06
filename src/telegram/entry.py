@@ -1,18 +1,19 @@
 import asyncio
 
-import handlers
 from aiogram import Bot, Dispatcher
 from aiogram.client.session.aiohttp import AiohttpSession
 from structlog import get_logger
 
 from src.configs import Configs, setup_logging
 
+from .handlers import router
+
 setup_logging()
 logger = get_logger()
 
 
 def register_routers(dp: Dispatcher) -> None:
-    dp.include_routers(handlers.router)
+    dp.include_routers(router)
 
 
 async def main() -> None:

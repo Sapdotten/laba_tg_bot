@@ -1,16 +1,19 @@
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 
-from src.configs import consts
+from src.configs.consts import IS_OPEN_QUERY, TO_CLOSE_QUERY, TO_OPEN_QUERY
 
 
 def user_keyboard() -> ReplyKeyboardMarkup:
     return ReplyKeyboardMarkup(keyboard=[
-        [KeyboardButton(text=consts.IS_OPEN_TEXT)]
+        [KeyboardButton(text=IS_OPEN_QUERY)]
     ], resize_keyboard=True, one_time_keyboard=False)
 
 
 def admin_keyboard() -> ReplyKeyboardMarkup:
     return ReplyKeyboardMarkup(keyboard=[
-        [KeyboardButton(text=consts.IS_OPEN_TEXT)],
-        [KeyboardButton(text=consts.OPEN_TEXT), KeyboardButton(text=consts.CLOSE_TEXT)]
+        [KeyboardButton(text=IS_OPEN_QUERY)],
+        [
+            KeyboardButton(text=TO_OPEN_QUERY),
+            KeyboardButton(text=TO_CLOSE_QUERY)
+        ]
     ], resize_keyboard=True, one_time_keyboard=False)
