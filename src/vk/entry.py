@@ -25,13 +25,13 @@ def main() -> None:
                     response = lab_is_open_answer()
                 case consts.TO_OPEN_QUERY:
                     response = lab_switch_state_answer(
-                        state=True,
+                        open=True,
                         user_id=event.user_id,
                         bot_type=BotType.vk
                     )
                 case consts.TO_CLOSE_QUERY:
                     response = lab_switch_state_answer(
-                        state=False,
+                        open=False,
                         user_id=event.user_id,
                         bot_type=BotType.vk
                     )
