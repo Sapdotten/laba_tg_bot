@@ -5,20 +5,16 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.session.aiohttp import AiohttpSession
 
 import handlers
-
 from config import Configs
 
 logging.basicConfig(level=logging.INFO)
 
 
-def register_routers(dp):
+def register_routers(dp: Dispatcher) -> None:
     dp.include_routers(handlers.router)
 
 
 async def main() -> None:
-    """
-    Entry point
-    """
     session = AiohttpSession()
     bot = Bot(Configs().bot_token, session=session)
     dp = Dispatcher()
