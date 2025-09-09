@@ -15,6 +15,8 @@ def main() -> None:
         if event.type == VkEventType.MESSAGE_NEW and event.to_me:
             response: str | None = None
             match event.text:
+                case consts.BEGIN_TEXT:
+                    response = consts.START_TEXT
                 case consts.IS_OPEN_TEXT:
                     response = lab_is_open()
                 case consts.OPEN_TEXT:
