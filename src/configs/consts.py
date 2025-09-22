@@ -1,4 +1,5 @@
 START_TEXT: str = "Привет!\nЯ бот клуба Robotic и у меня можно узнать, открыта ли наша лаборатория"
+BEGIN_TEXT: str = "Начать"
 IS_OPEN_QUERY: str = "Лаборатория открыта?"
 IS_OPEN_ANSWER: str = "Лаборатория открыта"
 IS_CLOSE_ANSWER: str = "Лаборатория закрыта"
