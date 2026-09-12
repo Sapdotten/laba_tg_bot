@@ -7,6 +7,8 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+    depends_on:
+      - proxy
 
   vk-bot:
     build:
@@ -16,3 +18,17 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+  proxy:
+    build:
+      context: ../src/proxy
+      dockerfile: ../../.docker/DockerfileProxy
+      target: prod
+      args:
+        PROXY_CONNECTION_LINK: ${PROXY_CONNECTION_LINK}
+        PROXY_PORT: ${PROXY_PORT}
+        PROXY_CONFIG_PATH: ${PROXY_CONFIG_PATH}
+    env_file:
+      - .env
+    expose:
+      - "${PROXY_PORT}"
+    
