@@ -6,7 +6,7 @@ from structlog import get_logger
 
 from src.configs import Configs, setup_logging
 
-from .handlers import router
+from handlers import router
 
 setup_logging()
 logger = get_logger()
@@ -17,7 +17,8 @@ def register_routers(dp: Dispatcher) -> None:
 
 
 async def main() -> None:
-    session = AiohttpSession()
+    session = AiohttpSession(
+        proxy="socks5://proxy:10808")
     bot = Bot(Configs().tg_bot_token, session=session)
     dp = Dispatcher()
     register_routers(dp)

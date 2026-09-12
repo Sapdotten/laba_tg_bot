@@ -29,6 +29,9 @@
 | BACK_URL             | str | адрес сервиса управления состоянием лабы | 
 | TG_BOT_TOKEN         | str | токен доступа к telegram-боту           | 
 | VK_BOT_TOKEN         | str | токен доступа к vk-боту                 | 
+| PROXY_CONNECTION_LINK | str | строка подключения к прокси socks5|
+| PROXY_PORT | str | Порт запуска прокси |
+| PROXY_CONFIG_PATH | str | название конфига |
 
 Сборка и запуск из корня проекта:
 ```bash

@@ -1,0 +1,43 @@
+FROM python:3.13.14-alpine3.24 as build
+
+ARG PROXY_CONNECTION_LINK
+ARG PROXY_PORT
+ARG PROXY_CONFIG_PATH
+
+ENV PROXY_CONNECTION_LINK=${PROXY_CONNECTION_LINK}
+ENV PROXY_PORT=${PROXY_PORT}
+ENV PROXY_CONFIG_PATH=${PROXY_CONFIG_PATH}
+
+
+ENV WORKDIR /app
+
+WORKDIR ${WORKDIR}
+
+
+RUN python3 -m pip install httpx[socks]
+RUN python3 -m pip install pydantic-settings
+
+COPY generate_config.py generate_config.py
+
+RUN python3 generate_config.py
+
+
+FROM alpine:3.24 as prod
+
+ARG PROXY_CONFIG_PATH
+
+ENV WORKDIR /app
+WORKDIR ${WORKDIR}
+
+RUN apk add --no-cache curl unzip && \
+    curl -L -o /tmp/xray.zip https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip && \
+    unzip /tmp/xray.zip -d /xray && \
+    rm /tmp/xray.zip && \
+    chmod +x /xray/xray && \
+    apk del curl unzip
+
+COPY --from=build /${WORKDIR}/${PROXY_CONFIG_PATH} ${PROXY_CONFIG_PATH}
+
+EXPOSE $PROXY_PORT
+
+CMD ["sh", "-c", "/xray/xray -c ${PROXY_CONFIG_PATH}"]
